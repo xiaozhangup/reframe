@@ -1,7 +1,7 @@
 package me.eereeska.reframe.listeners;
 
 import me.eereeska.reframe.ReFrame;
-import me.eereeska.reframe.gui.menu.ItemFrameMenuInventoryHolder;
+import me.eereeska.reframe.gui.ItemFrameMenuInventoryHolder;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,8 +19,6 @@ public class ItemFrameMenuInventoryClickListener implements Listener {
     @EventHandler
     public void onIconClick(InventoryClickEvent e) {
         if (e.getWhoClicked() instanceof Player) {
-            final Player p = (Player) e.getWhoClicked();
-
             if (e.getView().getTopInventory().getHolder() instanceof ItemFrameMenuInventoryHolder) {
                 e.setCancelled(true);
 
@@ -32,10 +30,10 @@ public class ItemFrameMenuInventoryClickListener implements Listener {
 
                 final ItemFrameMenuInventoryHolder inventory = (ItemFrameMenuInventoryHolder) e.getView().getTopInventory().getHolder();
 
-                if (clicked.equals(inventory.toggleVisibilityIcon()) && p.hasPermission(plugin.getConfig().getString("permissions.visibility"))) {
+                if (clicked.equals(inventory.toggleVisibilityIcon())) {
                     inventory.getItemFrame().setVisible(!inventory.getItemFrame().isVisible());
                     inventory.updateIcons();
-                } else if (clicked.equals(inventory.toggleFixationIcon()) && p.hasPermission(plugin.getConfig().getString("permissions.fixation"))) {
+                } else if (clicked.equals(inventory.toggleFixationIcon())) {
                     inventory.getItemFrame().setFixed(!inventory.getItemFrame().isFixed());
                     inventory.updateIcons();
                 }

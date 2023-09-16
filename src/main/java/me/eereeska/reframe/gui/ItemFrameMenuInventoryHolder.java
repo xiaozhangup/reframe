@@ -1,6 +1,7 @@
-package me.eereeska.reframe.gui.menu;
+package me.eereeska.reframe.gui;
 
 import me.eereeska.reframe.ReFrame;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.ItemFrame;
@@ -17,14 +18,12 @@ public class ItemFrameMenuInventoryHolder implements InventoryHolder {
     private final ReFrame plugin;
 
     private final Inventory inv;
-    private final Player p;
     private final ItemFrame itemFrame;
 
     public ItemFrameMenuInventoryHolder(final ReFrame plugin, final Player p, final ItemFrame itemFrame) {
         this.plugin = plugin;
 
         this.inv = Bukkit.createInventory(this, 27, plugin.getConfig().getString("phrases.menu", "Menu"));
-        this.p = p;
         this.itemFrame = itemFrame;
 
         this.updateIcons();
@@ -65,17 +64,8 @@ public class ItemFrameMenuInventoryHolder implements InventoryHolder {
     }
 
     public final void updateIcons() {
-        final boolean playerHasVisibilityPermission = p.hasPermission(plugin.getConfig().getString("permissions.visibility"));
-        final boolean playerHasFixationPermission = p.hasPermission(plugin.getConfig().getString("permissions.fixation"));
-
-        if (playerHasFixationPermission && playerHasVisibilityPermission) {
-            this.inv.setItem(12, this.toggleVisibilityIcon());
-            this.inv.setItem(14, this.toggleFixationIcon());
-        } else if (playerHasVisibilityPermission) {
-            this.inv.setItem(13, this.toggleVisibilityIcon());
-        } else if (playerHasFixationPermission) {
-            this.inv.setItem(13, this.toggleFixationIcon());
-        }
+        this.inv.setItem(12, this.toggleVisibilityIcon());
+        this.inv.setItem(14, this.toggleFixationIcon());
     }
 
     public final ItemFrame getItemFrame() {
