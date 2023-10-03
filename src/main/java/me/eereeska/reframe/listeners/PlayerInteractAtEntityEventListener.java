@@ -12,6 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
@@ -34,6 +35,8 @@ public class PlayerInteractAtEntityEventListener implements Listener {
 
             final Player p = e.getPlayer();
             final ItemFrame itemFrame = (ItemFrame) e.getRightClicked();
+
+            if (itemFrame.getEntitySpawnReason() != CreatureSpawnEvent.SpawnReason.DEFAULT) return;
 
             if (p.isSneaking()) {
                 if (p.getInventory().getItemInMainHand().getType().equals(Material.AIR)) {
